@@ -32,6 +32,57 @@ class PolynomialTest{
 		return true;
 	}
 
+
+	bool test_constructors2(){
+		Polynomial b = Polynomial(temp, 5);
+		ASSERT_TRUE((b.data.size() == ));
+		ASSERT_TRUE((b.data == {1, 2, 3, 4, 5}));
+		return true;
+	}
+
+	bool test_constructors3(){
+		Polynomial c = Polynomial(coefficient_file);
+		ASSERT_TRUE((c.data.size() == 5));
+		ASSERT_TRUE((c.data == {2, 9, 4, 1, 4));
+		return true;
+	}
+
+	bool add_polynomials(){
+		
+		int temp[4] = {2, 0, 4, 3};
+		int temp2[5] = {3, 4, 1, 3, 5};
+
+		int x = 4;
+		int y = 5;
+		
+		Polynomial a = Polynomial(temp, x);
+		Polynomial b = Polynomial(temp2, y);
+
+		a + b;
+
+		ASSERT_TRUE((a.data.size() == 5));
+		ASSERT_TRUE((a.data == {5, 4, 5, 6, 5));
+		return true;
+	}
+
+	bool subtract_polynomials(){
+		
+		int temp[5] = {2, 7, 0, 4, 3};
+		int temp2[3] = {3, 4, 1,};
+
+		int x = 5;
+		int y = 3;
+		
+		Polynomial a = Polynomial(temp, x);
+		Polynomial b = Polynomial(temp2, y);
+
+		a - b;
+
+		ASSERT_TRUE((a.data.size() == 5));
+		ASSERT_TRUE((a.data == {-1, 2, -1, 4, 3));
+		return true;
+	}
+
 	void run(){
 		if (test_constructors1())
 			cout << "Test Constructors 1 Passed" << endl;

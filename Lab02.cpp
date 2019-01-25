@@ -43,7 +43,7 @@ class PolynomialTest{
 	bool test_constructors3(){
 		Polynomial c = Polynomial(coefficient_file);
 		ASSERT_TRUE((c.data.size() == 5));
-		ASSERT_TRUE((c.data == {2, 9, 4, 1, 4));
+		ASSERT_TRUE((c.data == {2, 9, 4, 1, 4}));
 		return true;
 	}
 
@@ -61,14 +61,14 @@ class PolynomialTest{
 		a + b;
 
 		ASSERT_TRUE((a.data.size() == 5));
-		ASSERT_TRUE((a.data == {5, 4, 5, 6, 5));
+		ASSERT_TRUE((a.data == {5, 4, 5, 6, 5}));
 		return true;
 	}
 
 	bool subtract_polynomials(){
 		
 		int temp[5] = {2, 7, 0, 4, 3};
-		int temp2[3] = {3, 4, 1,};
+		int temp2[3] = {3, 4, 1};
 
 		int x = 5;
 		int y = 3;
@@ -79,7 +79,25 @@ class PolynomialTest{
 		a - b;
 
 		ASSERT_TRUE((a.data.size() == 5));
-		ASSERT_TRUE((a.data == {-1, 2, -1, 4, 3));
+		ASSERT_TRUE((a.data == {-1, 2, -1, 4, 3}));
+		return true;
+	}
+
+	bool multiply_polynomials(){
+		
+		int temp[3] = {7, 2, 3};
+		int temp2[2] = {1, 2};
+
+		int x = 3;
+		int y = 2;
+		
+		Polynomial a = Polynomial(temp, x);
+		Polynomial b = Polynomial(temp2, y);
+
+		a * b;
+
+		ASSERT_TRUE((a.data.size() == 4));
+		ASSERT_TRUE((a.data == {7, 16, 7, 6}));
 		return true;
 	}
 

@@ -101,12 +101,28 @@ class PolynomialTest{
 		return true;
 	}
 
+	bool derive_polynomial(){
+		
+		int temp[3] = {-1, 2, 3};
+
+		int x = 3;
+		
+		Polynomial a = Polynomial(temp, x);
+
+		a.derivative();
+
+		ASSERT_TRUE((a.data.size() == 2));
+		ASSERT_TRUE((a.data == {2, 6}));
+		return true;
+	}
+
 	void run(){
 		if (test_constructors1())
 			cout << "Test Constructors 1 Passed" << endl;
 		else
 			cout << "Test Constructors 1 Failed" << endl;
 	}
+	
 
 };
 

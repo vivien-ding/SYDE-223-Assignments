@@ -116,7 +116,6 @@ class PolynomialTest{
 
 		ASSERT_TRUE((a.data.size() == 2));
 		ASSERT_TRUE((a.data == {2, 6}));
->>>>>>> ec7068ef9aa69e67cd17ce19a02788d71019d431
 		return true;
 	}
 

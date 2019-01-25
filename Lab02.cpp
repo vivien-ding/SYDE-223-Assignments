@@ -121,6 +121,36 @@ class PolynomialTest{
 			cout << "Test Constructors 1 Passed" << endl;
 		else
 			cout << "Test Constructors 1 Failed" << endl;
+
+		if (test_constructors2())
+			cout << "Test Constructors 2 Passed" << endl;
+		else
+			cout << "Test Constructors 2 Failed" << endl;
+
+		if (test_constructors3())
+			cout << "Test Constructors 3 Passed" << endl;
+		else
+			cout << "Test Constructors 3 Failed" << endl;
+
+		if (add_polynomials())
+			cout << "Test Add Polynomials Passed" << endl;
+		else
+			cout << "Test Add Polynomials Failed" << endl;
+
+		if (subtract_polynomials())
+			cout << "Test Subtract Polynomials Passed" << endl;
+		else
+			cout << "Test Subtract Polynomials Failed" << endl;
+
+		if (multiply_polynomials())
+			cout << "Test Multiply Polynomials Passed" << endl;
+		else
+			cout << "Test Multiply Polynomials Failed" << endl;
+
+		if (derive_polynomial())
+			cout << "Test Derive Polynomials Passed" << endl;
+		else
+			cout << "Test Derive Polynomials Failed" << endl;
 	}
 	
 

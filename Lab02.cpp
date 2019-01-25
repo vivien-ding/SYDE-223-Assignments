@@ -77,12 +77,11 @@ class PolynomialTest{
 		Polynomial a = Polynomial(temp, x);
 		Polynomial b = Polynomial(temp2, y);
 
-		a - b;
+		a = a - b;
 
 		ASSERT_TRUE((a.data.size() == 5));
 		ASSERT_TRUE((a.data == {-1, 2, -1, 4, 3}));
-<<<<<<< HEAD
-=======
+
 		return true;
 	}
 

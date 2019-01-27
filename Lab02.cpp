@@ -21,7 +21,7 @@ class PolynomialTest{
 
 	public:
 
-
+		// checks that array of coefficients are stored properly
 		bool test_constructors_array(){
 
 			// PURPOSE: Test constructor arrays with positive, negative size, 0 size
@@ -53,7 +53,7 @@ class PolynomialTest{
 
 
 
-
+		// checks randomly generated polynomials are valid polynomials
 		bool test_constructors_random(){
 
 			// PURPOSE: Test constructor for random arrays, checks if their degrees are correct
@@ -74,7 +74,7 @@ class PolynomialTest{
 			return true;
 		}
 
-
+		// tests == operator
 		bool test_equals(){
 
 			// PURPOSE: Test equals override
@@ -100,6 +100,7 @@ class PolynomialTest{
 			return true;
 		}
 
+		// tests that constructor can take in text file of coefficients
 		bool test_constructors_file(){
 			
 			// PURPOSE: Test constructor from file
@@ -124,6 +125,7 @@ class PolynomialTest{
 		}
 
 
+		// checks that + operator adds polynomials
 		bool add_polynomials(){
 
 			// PURPOSE: Test overloaded + function, compares with expected output
@@ -152,6 +154,7 @@ class PolynomialTest{
 
 		}
 
+		// checks that - operator subtracts polynomials
 		bool subtract_polynomials(){
 
 			// PURPOSE: Test overloaded - function, compares with expected output
@@ -181,6 +184,7 @@ class PolynomialTest{
 			return true;
 		}
 
+		// checks that * operator multiplies polynomials
 		bool multiply_polynomials(){
 			
 			// PURPOSE: Test overloaded * function, compares with expected output
@@ -209,6 +213,7 @@ class PolynomialTest{
 			return true;
 		}
 
+		// checks that derive function derives polynomials
 		bool derive_polynomial(){
 
 			// PURPOSE: Test derivative function, compares with expected output
@@ -233,6 +238,7 @@ class PolynomialTest{
 			return true;
 		}
 
+	// runs tests
 	void run(){
 
 		// PURPOSE: Run all tests

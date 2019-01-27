@@ -1,5 +1,5 @@
 //Written by Vivien (Zhaowei) Ding & Christina Lim 
-//Student numbers: 20654920 & 
+//Student numbers: 20654920 & 20724130
 
 #ifndef LAB02_H
 #define LAB02_H

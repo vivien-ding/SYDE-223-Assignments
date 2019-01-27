@@ -46,6 +46,7 @@ class Polynomial {
 		}
 	}
 
+	// constructor that takes in file of coefficients
 	Polynomial(string fileName){
 		string line;
 		int index = 0;
@@ -70,6 +71,7 @@ class Polynomial {
 	}
 
 
+	// operator override == to check if polynomials are equal
 	bool operator==(const Polynomial& target){
 		if (data.size() != target.data.size()) return false;
 			
@@ -81,6 +83,7 @@ class Polynomial {
 
 	}
 
+	// function prints polynomial
 	void print(){
 
 		int first_non_zero = data.size() - 1;
@@ -99,7 +102,7 @@ class Polynomial {
 
 	}
 
-
+	// operator override + to add polynomials
 	Polynomial operator+(const Polynomial& target){
 		
 		int sizeA = data.size();
@@ -129,6 +132,7 @@ class Polynomial {
 
 	}
 
+	// operator override - to subtract polynomials
 	Polynomial operator-(const Polynomial& target){
 		
 		int sizeA = data.size();
@@ -162,6 +166,7 @@ class Polynomial {
 
 	}
 
+	//operator override * to multiply polynomials
 	Polynomial operator*(const Polynomial& target){
 		
 
@@ -181,6 +186,7 @@ class Polynomial {
 
 	}
 
+	// function of class polynomial to derive polynomials
 	Polynomial derivative(){
 		
 		int size = data.size()-1;

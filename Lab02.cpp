@@ -18,7 +18,7 @@ class PolynomialTest{
 
 	public:
 
-
+		// checks that array of coefficients are stored properly
 		bool test_constructors_array(){
 			
 			int temp [7] = {1, 2, 3, 4, 5, 6,7};
@@ -27,23 +27,6 @@ class PolynomialTest{
 			x = 5;
 			y = -2;
 
-<<<<<<< HEAD
-	bool test_constructors2(){
-		int temp [7] = {1, 2, 3, 4, 5, 6,7};
-		vector<int> answer = {1, 2, 3, 4, 5};
-		Polynomial b = Polynomial(temp, 5);
-		ASSERT_TRUE((b.data.size() == 5));
-		ASSERT_TRUE((b.data == answer));
-		return true;
-	}
-
-	bool test_constructors3(){
-		Polynomial c = Polynomial(coefficient_file);
-		ASSERT_TRUE((c.data.size() == 5));
-		ASSERT_TRUE((c.data == [2, 9, 4, 1, 4]));
-		return true;
-	}
-=======
 			a = Polynomial(temp, x);
 			b = Polynomial(temp, y);
 			c = Polynomial(temp2, x);
@@ -57,11 +40,10 @@ class PolynomialTest{
 			ASSERT_TRUE(a.data == c.data);
 			return true;
 		}
->>>>>>> 5d40b8e766c45c076570f9fe30e5878ee651b953
 
 
 
-
+		// checks randomly generated polynomials are valid polynomials
 		bool test_constructors_random(){
 			a = Polynomial();
 			b = Polynomial();
@@ -77,14 +59,7 @@ class PolynomialTest{
 			return true;
 		}
 
-<<<<<<< HEAD
-		ASSERT_TRUE((a.data.size() == 5));
-		ASSERT_TRUE((a.data == {-1, 2, -1, 4, 3}));
-		return true;
-	}
-=======
->>>>>>> 5d40b8e766c45c076570f9fe30e5878ee651b953
-
+		// tests == operator
 		bool test_equals(){
 			int temp [7] = {1, 2, 3, 4, 5, 6,7};
 			int temp2 [5] = {9, 32, 1, 4, 5};
@@ -105,6 +80,7 @@ class PolynomialTest{
 			return true;
 		}
 
+		// tests that constructor can take in text file of coefficients
 		bool test_constructors_file(){
 			
 			x = 5;
@@ -125,6 +101,7 @@ class PolynomialTest{
 		}
 
 
+		// checks that + operator adds polynomials
 		bool add_polynomials(){
 			
 			int temp[4] = {2, 0, 4, 3};
@@ -145,6 +122,7 @@ class PolynomialTest{
 
 		}
 
+		// checks that - operator subtracts polynomials
 		bool subtract_polynomials(){
 			
 			int temp[5] = {2, 7, 0, 4, 3};
@@ -168,6 +146,7 @@ class PolynomialTest{
 			return true;
 		}
 
+		// checks that * operator multiplies polynomials
 		bool multiply_polynomials(){
 			
 			int temp[3] = {7, 2, 3};
@@ -188,6 +167,7 @@ class PolynomialTest{
 			return true;
 		}
 
+		// checks that derive function derives polynomials
 		bool derive_polynomial(){
 			
 			int temp[3] = {-1, 2, 3};
@@ -204,6 +184,7 @@ class PolynomialTest{
 			return true;
 		}
 
+	// runs tests
 	void run(){
 		if (test_constructors_array())
 			cout << "Test Constructors with Array input Passed" << endl;

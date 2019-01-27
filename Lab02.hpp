@@ -1,5 +1,8 @@
 //Written by Vivien (Zhaowei) Ding and Christina Lim 
 
+#ifndef LAB02_H
+#define LAB02_H
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -8,8 +11,6 @@
 using namespace std;
 using std::vector;
 
-#define ASSERT_TRUE(T) if (!(T)) return false;
-#define ASSERT_FALSE(T) if ((T)) return false;
 
 class Polynomial {
 	
@@ -19,6 +20,7 @@ class Polynomial {
 
 	friend class PolynomialTest;
 
+	//constructor
 	Polynomial (int A[], int size){
 		
 		for(int i = 0; i < size; i++){
@@ -27,10 +29,12 @@ class Polynomial {
 
 	}
 
+	//random constructor
 	Polynomial(){
 		int size;
 
 		size = rand() % 1001;
+
 		for(int i = 0; i < size; i++){
 			int sign = rand() % 2;
 			int num = rand() % 1001;
@@ -49,16 +53,13 @@ class Polynomial {
 
 		ifstream file(fileName);
 
-		while(getline(file, line)){
+		while(getline(file, line) && index <= size){
 			
 			if (index == 0){
 				size = stoi(line);
 			}
 			else{
 				
-				if (index > size){
-					break;
-				} 
 				data.push_back(stoi(line));
 			}
 
@@ -66,29 +67,8 @@ class Polynomial {
 		}
 
 
-		// istream& getline(file, line);
-		// int size = stoi(line);
-
-		// for (int i = 0; i < size + 1; i++){
-
-		// 	string coef_line;
-
-		// 	istream& getline(file, coef_line);
-
-		// 	int coef = stoi(coef_line);	
-		// 	data.push_back(coef);
-		// }
-
-
-		// if (file.is_open()){
-		// 	getline ()
-
-		// }
-
-
 	}
 
-	// ~Polynomial();
 
 	bool operator==(const Polynomial& target){
 		if (data.size() != target.data.size()) return false;
@@ -103,49 +83,82 @@ class Polynomial {
 
 	void print(){
 
-		for (int pow = data.size() - 1; pow >= 0; pow--){
-			if (data[pow] != 0) cout << data[pow] << "x^" << pow << "+";
-
+		int first_non_zero = data.size() - 1;
+		
+		while (data[first_non_zero] == 0){
+			first_non_zero--;
 		}
+
+		for (int pow = first_non_zero; pow >= 0; pow--){
+			if (pow == first_non_zero) cout << data[pow] << "x^" << pow;
+			if ((pow != first_non_zero) && (data[pow] > 0)) cout << " + " << data[pow] << "x^" << pow;
+			if ((pow != first_non_zero) && (data[pow] < 0)) cout << " - " << abs(data[pow]) << "x^" << pow;
+		}
+
+		cout << "\n\n\n";
+
 	}
 
+
 	Polynomial operator+(const Polynomial& target){
+		
 		int sizeA = data.size();
 		int sizeB = target.data.size();
+		int size;
 
+		if (sizeA>=sizeB) size = sizeA;
+		else size = sizeB;
+
+		int *sum = new int[size]();
+		
 		if (sizeA > sizeB) {
 			for (int i = 0; i < sizeB; i++){
-				data[i] += target.data[i];
+				sum[i] = data[i] + target.data[i];
 			}
 		}
 		else{
 			for (int i = 0; i < sizeA; i++){
-				data[i] += target.data[i];
+				sum[i] = data[i] + target.data[i];
 			}
 			for (int i = sizeA; i < sizeB; i++){
-				data.push_back(target.data[i]);
+				sum[i] = target.data[i];
 			}
 		}
+
+		return Polynomial(sum, size);
 
 	}
 
 	Polynomial operator-(const Polynomial& target){
+		
 		int sizeA = data.size();
 		int sizeB = target.data.size();
+		int size;
 
+		if (sizeA>=sizeB) size = sizeA;
+		else size = sizeB;
+
+		int *diff = new int[size]();
+
+		
 		if (sizeA > sizeB) {
 			for (int i = 0; i < sizeB; i++){
-				data[i] -= target.data[i];
+				diff[i] = data[i] - target.data[i];
+			}
+			for (int i = sizeB; i < sizeA; i++){
+				diff[i] = data[i];
 			}
 		}
 		else{
 			for (int i = 0; i < sizeA; i++){
-				data[i] -= target.data[i];
+				diff[i] = data[i] - target.data[i];
 			}
 			for (int i = sizeA; i < sizeB; i++){
-				data.push_back(target.data[i]*(-1));
+				diff[i] = -1 * (target.data[i]);
 			}
 		}
+
+		return Polynomial(diff, size);
 
 	}
 
@@ -154,33 +167,36 @@ class Polynomial {
 
 		int sizeA = data.size();
 		int sizeB = target.data.size();
+		int size = sizeA + sizeB - 1;
 
-		Polynomial sum;
+		int *prod = new int[size]();
 
-		for (int i = 0; i < sizeB; i++){
-			Polynomial a;
-			
-			for (int x = 0; x < i; x++){
-				a.data.push_back(0);
+		for (int i = 0; i < sizeA; i++){
+			for (int j = 0; j < sizeB; j++){
+				prod[i+j] += (data[i] * target.data[j]);
 			}
-			
-			for (int j = 0; j < sizeA; j++){
-				a.data.push_back(data[j]*target.data[i]);
-			}
-			sum = sum + a;
 		}
 
-		data = sum.data;
+		return Polynomial(prod, size);
+
 	}
 
 	Polynomial derivative(){
-		Polynomial temp;
+		
+		int size = data.size()-1;
+		int *der = new int[size]();
+
 		for (int i = 1; i < data.size(); i++){
-			temp.data.push_back(i*data[i]);
+			der[i-1] = i * data[i];
 		}
-		data = temp.data;
+
+		return Polynomial(der, size);
 	}
+
+
 };
+
+#endif
 
 
 

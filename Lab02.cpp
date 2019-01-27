@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <array>
 #include "Lab02.hpp"
 
 using namespace std;
@@ -12,27 +13,21 @@ using std::vector;
 
 class PolynomialTest{
 	
-	Polynomial a, b, c;
+	Polynomial a, b, c, d;
 	int x, y, z;
+
 	public:
 
-	bool test_constructors1(){
-		
-		int temp [7] = {1, 2, 3, 4, 5, 6,7};
-		int temp2 [5] = {1, 2, 3, 4, 5};
-		
-		x = 5;
-		y = -2;
 
-		a = Polynomial(temp, x);
-		b = Polynomial(temp, y);
-		
-		ASSERT_TRUE((a.data.size() == 5));
-		ASSERT_TRUE(a.data != b.data);
-		return true;
-	}
+		bool test_constructors_array(){
+			
+			int temp [7] = {1, 2, 3, 4, 5, 6,7};
+			int temp2 [5] = {1, 2, 3, 4, 5};
+			
+			x = 5;
+			y = -2;
 
-
+<<<<<<< HEAD
 	bool test_constructors2(){
 		int temp [7] = {1, 2, 3, 4, 5, 6,7};
 		vector<int> answer = {1, 2, 3, 4, 5};
@@ -48,106 +43,208 @@ class PolynomialTest{
 		ASSERT_TRUE((c.data == [2, 9, 4, 1, 4]));
 		return true;
 	}
+=======
+			a = Polynomial(temp, x);
+			b = Polynomial(temp, y);
+			c = Polynomial(temp2, x);
+			
+			// a.print();
+			// b.print();
 
-	bool add_polynomials(){
-		
-		int temp[4] = {2, 0, 4, 3};
-		int temp2[5] = {3, 4, 1, 3, 5};
+			ASSERT_TRUE((a.data.size() == 5));
+			ASSERT_FALSE(a.data == b.data);
+			ASSERT_TRUE(a.data.size() == c.data.size());
+			ASSERT_TRUE(a.data == c.data);
+			return true;
+		}
+>>>>>>> 5d40b8e766c45c076570f9fe30e5878ee651b953
 
-		int x = 4;
-		int y = 5;
-		
-		Polynomial a = Polynomial(temp, x);
-		Polynomial b = Polynomial(temp2, y);
 
-		a + b;
 
-		ASSERT_TRUE((a.data.size() == 5));
-		ASSERT_TRUE((a.data == {5, 4, 5, 6, 5}));
-		return true;
-	}
 
-	bool subtract_polynomials(){
-		
-		int temp[5] = {2, 7, 0, 4, 3};
-		int temp2[3] = {3, 4, 1};
+		bool test_constructors_random(){
+			a = Polynomial();
+			b = Polynomial();
+			c = Polynomial();
 
-		int x = 5;
-		int y = 3;
-		
-		Polynomial a = Polynomial(temp, x);
-		Polynomial b = Polynomial(temp2, y);
+			// a.print();
+			// b.print();
+			// c.print();
 
-		a - b;
+			ASSERT_TRUE(a.data.size() >= 0 && b.data.size() >= 0 && c.data.size() >= 0);
+			ASSERT_TRUE(a.data.size() <= 1000 && b.data.size() <= 1000 && c.data.size() <= 1000);
 
+			return true;
+		}
+
+<<<<<<< HEAD
 		ASSERT_TRUE((a.data.size() == 5));
 		ASSERT_TRUE((a.data == {-1, 2, -1, 4, 3}));
 		return true;
 	}
+=======
+>>>>>>> 5d40b8e766c45c076570f9fe30e5878ee651b953
 
-	bool multiply_polynomials(){
-		
-		int temp[3] = {7, 2, 3};
-		int temp2[2] = {1, 2};
+		bool test_equals(){
+			int temp [7] = {1, 2, 3, 4, 5, 6,7};
+			int temp2 [5] = {9, 32, 1, 4, 5};
+			int temp3 [5] = {1, 2, 3, 4, 5};
+			
+			x = 5;
+			y = -2;
 
-		int x = 3;
-		int y = 2;
-		
-		Polynomial a = Polynomial(temp, x);
-		Polynomial b = Polynomial(temp2, y);
+			a = Polynomial(temp, x);
+			b = Polynomial(temp, y);
+			c = Polynomial(temp2, x);
+			d = Polynomial(temp3, x);
 
-		a * b;
+			ASSERT_FALSE(a==b);
+			ASSERT_FALSE(a==c);
+			ASSERT_TRUE (a==d);
 
-		ASSERT_TRUE((a.data.size() == 4));
-		ASSERT_TRUE((a.data == {7, 16, 7, 6}));
-		return true;
-	}
+			return true;
+		}
 
-	bool derive_polynomial(){
-		
-		int temp[3] = {-1, 2, 3};
+		bool test_constructors_file(){
+			
+			x = 5;
 
-		int x = 3;
-		
-		Polynomial a = Polynomial(temp, x);
+			a = Polynomial("mypolynomial.txt");
+			// a.print();
 
-		a.derivative();
+			int array[5] = {10, 9, 321321, 231, 7};
 
-		ASSERT_TRUE((a.data.size() == 2));
-		ASSERT_TRUE((a.data == {2, 6}));
-		return true;
-	}
+			b = Polynomial(array, 5);
+
+			// b.print();
+			
+			ASSERT_TRUE(a==b);
+
+			return true;
+
+		}
+
+
+		bool add_polynomials(){
+			
+			int temp[4] = {2, 0, 4, 3};
+			int temp2[5] = {3, 4, 1, 3, 5};
+			int temp3[5] = {5, 4, 5, 6, 5};
+
+			int x = 4;
+			int y = 5;
+			
+			a = Polynomial(temp, x);
+			b = Polynomial(temp2, y);
+
+			c = a + b;
+			d = Polynomial(temp3, 5);
+
+			ASSERT_TRUE(c == d);
+			return true;
+
+		}
+
+		bool subtract_polynomials(){
+			
+			int temp[5] = {2, 7, 0, 4, 3};
+			int temp2[3] = {3, 4, 1};
+			int temp3[5] = {-1, 3, -1, 4, 3};
+
+			int x = 5;
+			int y = 3;
+			
+			a = Polynomial(temp, x);
+			b = Polynomial(temp2, y);
+
+			c = a - b;
+			d = Polynomial(temp3, x);
+
+			// c.print();
+			// d.print();
+
+			ASSERT_TRUE(c==d);
+
+			return true;
+		}
+
+		bool multiply_polynomials(){
+			
+			int temp[3] = {7, 2, 3};
+			int temp2[2] = {1, 2};
+			int temp3[4] = {7, 16, 7, 6};
+
+			int x = 3;
+			int y = 2;
+			
+			Polynomial a = Polynomial(temp, x);
+			Polynomial b = Polynomial(temp2, y);
+
+			c = a * b;
+			d = Polynomial(temp3, 4);
+
+			ASSERT_TRUE(c==d);
+
+			return true;
+		}
+
+		bool derive_polynomial(){
+			
+			int temp[3] = {-1, 2, 3};
+			int temp2[2] = {2, 6};
+
+			x = 3;
+			
+			a = Polynomial(temp, x);
+
+			b = a.derivative();
+			c = Polynomial(temp2, 2);
+
+			ASSERT_TRUE(b==c);
+			return true;
+		}
 
 	void run(){
-		if (test_constructors1())
-			cout << "Test Constructors 1 Passed" << endl;
+		if (test_constructors_array())
+			cout << "Test Constructors with Array input Passed" << endl;
 		else
-			cout << "Test Constructors 1 Failed" << endl;
+			cout << "Test Constructors with Array input Failed" << endl;
 
-		if (test_constructors2())
-			cout << "Test Constructors 2 Passed" << endl;
+		if (test_constructors_random())
+			cout << "Test Constructors with Random input Passed" << endl;
 		else
-			cout << "Test Constructors 2 Failed" << endl;
+			cout << "Test Constructors with Random input Failed" << endl;
 
-		if (test_constructors3())
-			cout << "Test Constructors 3 Passed" << endl;
+
+		if (test_equals())
+			cout << "Test == Operator Passed" << endl;
 		else
-			cout << "Test Constructors 3 Failed" << endl;
+			cout << "Test == Operator Failed" << endl;
+
+
+		if (test_constructors_file())
+			cout << "Test Constructors with File input Passed" << endl;
+		else
+			cout << "Test Constructors with File input Failed" << endl;
+
 
 		if (add_polynomials())
 			cout << "Test Add Polynomials Passed" << endl;
 		else
 			cout << "Test Add Polynomials Failed" << endl;
 
+
 		if (subtract_polynomials())
 			cout << "Test Subtract Polynomials Passed" << endl;
 		else
 			cout << "Test Subtract Polynomials Failed" << endl;
 
+
 		if (multiply_polynomials())
 			cout << "Test Multiply Polynomials Passed" << endl;
 		else
 			cout << "Test Multiply Polynomials Failed" << endl;
+
 
 		if (derive_polynomial())
 			cout << "Test Derive Polynomials Passed" << endl;

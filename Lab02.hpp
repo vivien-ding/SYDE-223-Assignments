@@ -1,4 +1,5 @@
-//Written by Vivien (Zhaowei) Ding and Christina Lim 
+//Written by Vivien (Zhaowei) Ding & Christina Lim 
+//Student numbers: 20654920 & 
 
 #ifndef LAB02_H
 #define LAB02_H
@@ -20,8 +21,11 @@ class Polynomial {
 
 	friend class PolynomialTest;
 
-	//constructor
 	Polynomial (int A[], int size){
+
+		// PURPOSE: Construct a polynomial from array
+			// INPUTS: Array of coefficients, size (degree) of polynomial vector
+			// OUTPUTS: Polynomial
 		
 		for(int i = 0; i < size; i++){
 			data.push_back(A[i]);
@@ -29,8 +33,12 @@ class Polynomial {
 
 	}
 
-	//random constructor
 	Polynomial(){
+
+		// PURPOSE: Construct a random polynomial
+			// INPUTS: none
+			// OUTPUTS: Polynomial from deg 0-1000, with coefficients from -1000 to 1000
+
 		int size;
 
 		size = rand() % 1001;
@@ -46,7 +54,14 @@ class Polynomial {
 		}
 	}
 
+
 	Polynomial(string fileName){
+
+		// PURPOSE: Construct a polynomial from a file, with file's first like as the polynomials degree
+			//and the rest of the numbers in the file as coefficients
+			// INPUTS: name of the file to 
+			// OUTPUTS: Polynomial
+
 		string line;
 		int index = 0;
 		int size = 0;
@@ -71,6 +86,12 @@ class Polynomial {
 
 
 	bool operator==(const Polynomial& target){
+
+		// PURPOSE: Overrides == operator to check equality of *this and another polynomial 
+			// INPUTS: Polynomial
+			// OUTPUTS: boolean value (0 or 1) depending on equality or not
+
+
 		if (data.size() != target.data.size()) return false;
 			
 		for (int i = 0; i < data.size(); i++){
@@ -82,6 +103,10 @@ class Polynomial {
 	}
 
 	void print(){
+
+		// PURPOSE: Prints polynomial to a.out from highest to lowest degree with corresponding coeffs
+			// INPUTS: none, use Polynomial.print()
+			// OUTPUTS: none, cout polynoial
 
 		int first_non_zero = data.size() - 1;
 		
@@ -101,6 +126,10 @@ class Polynomial {
 
 
 	Polynomial operator+(const Polynomial& target){
+
+		// PURPOSE: Overrides + operator to add *this and another polynomial 
+			// INPUTS: Polynomial
+			// OUTPUTS: Sum of Polynomials
 		
 		int sizeA = data.size();
 		int sizeB = target.data.size();
@@ -129,7 +158,12 @@ class Polynomial {
 
 	}
 
+
 	Polynomial operator-(const Polynomial& target){
+
+		// PURPOSE: Overrides - operator to subtract another polynomial from *this
+			// INPUTS: Polynomial
+			// OUTPUTS: Difference between the two Polynomials
 		
 		int sizeA = data.size();
 		int sizeB = target.data.size();
@@ -162,8 +196,12 @@ class Polynomial {
 
 	}
 
+
 	Polynomial operator*(const Polynomial& target){
 		
+		// PURPOSE: Overrides * operator to multiply *this and another polynomial 
+			// INPUTS: Polynomial
+			// OUTPUTS: Product of Polynomials
 
 		int sizeA = data.size();
 		int sizeB = target.data.size();
@@ -182,6 +220,10 @@ class Polynomial {
 	}
 
 	Polynomial derivative(){
+
+		// PURPOSE: Finds the derivative of a polynomial
+			// INPUTS: None, use Polynomial.derivative()
+			// OUTPUTS: Derivative of Polynomial
 		
 		int size = data.size()-1;
 		int *der = new int[size]();

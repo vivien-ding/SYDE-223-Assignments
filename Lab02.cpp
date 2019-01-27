@@ -1,3 +1,6 @@
+//Written by Vivien (Zhaowei) Ding & Christina Lim 
+//Student numbers: 20654920 & 
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -20,24 +23,31 @@ class PolynomialTest{
 
 
 		bool test_constructors_array(){
+
+			// PURPOSE: Test constructor arrays with positive, negative size, 0 size
+			// INPUTS: None
+			// OUTPUTS: Bool of pass/fail
 			
 			int temp [7] = {1, 2, 3, 4, 5, 6,7};
 			int temp2 [5] = {1, 2, 3, 4, 5};
 			
 			x = 5;
 			y = -2;
+			z = 0;
 
 			a = Polynomial(temp, x);
 			b = Polynomial(temp, y);
 			c = Polynomial(temp2, x);
+			d = Polynomial(temp2, z);
 			
-			// a.print();
-			// b.print();
+			a.print();
+			b.print();
 
 			ASSERT_TRUE((a.data.size() == 5));
 			ASSERT_FALSE(a.data == b.data);
 			ASSERT_TRUE(a.data.size() == c.data.size());
 			ASSERT_TRUE(a.data == c.data);
+			ASSERT_TRUE((a.data.size() == x) && (d.data.size() == z));
 			return true;
 		}
 
@@ -45,13 +55,18 @@ class PolynomialTest{
 
 
 		bool test_constructors_random(){
+
+			// PURPOSE: Test constructor for random arrays, checks if their degrees are correct
+			// INPUTS: None
+			// OUTPUTS: Bool of pass/fail
+
 			a = Polynomial();
 			b = Polynomial();
 			c = Polynomial();
 
-			// a.print();
-			// b.print();
-			// c.print();
+			a.print();
+			b.print();
+			c.print();
 
 			ASSERT_TRUE(a.data.size() >= 0 && b.data.size() >= 0 && c.data.size() >= 0);
 			ASSERT_TRUE(a.data.size() <= 1000 && b.data.size() <= 1000 && c.data.size() <= 1000);
@@ -61,6 +76,11 @@ class PolynomialTest{
 
 
 		bool test_equals(){
+
+			// PURPOSE: Test equals override
+			// INPUTS: None
+			// OUTPUTS: Bool of pass/fail
+
 			int temp [7] = {1, 2, 3, 4, 5, 6,7};
 			int temp2 [5] = {9, 32, 1, 4, 5};
 			int temp3 [5] = {1, 2, 3, 4, 5};
@@ -82,16 +102,20 @@ class PolynomialTest{
 
 		bool test_constructors_file(){
 			
+			// PURPOSE: Test constructor from file
+			// INPUTS: None
+			// OUTPUTS: Bool of pass/fail
+
 			x = 5;
 
 			a = Polynomial("mypolynomial.txt");
-			// a.print();
+			a.print();
 
 			int array[5] = {10, 9, 321321, 231, 7};
 
+			//expected output
 			b = Polynomial(array, 5);
-
-			// b.print();
+			b.print();
 			
 			ASSERT_TRUE(a==b);
 
@@ -101,7 +125,11 @@ class PolynomialTest{
 
 
 		bool add_polynomials(){
-			
+
+			// PURPOSE: Test overloaded + function, compares with expected output
+			// INPUTS: None
+			// OUTPUTS: Bool of pass/fail
+
 			int temp[4] = {2, 0, 4, 3};
 			int temp2[5] = {3, 4, 1, 3, 5};
 			int temp3[5] = {5, 4, 5, 6, 5};
@@ -113,7 +141,11 @@ class PolynomialTest{
 			b = Polynomial(temp2, y);
 
 			c = a + b;
+			//expected output:
 			d = Polynomial(temp3, 5);
+
+			c.print();
+			d.print();
 
 			ASSERT_TRUE(c == d);
 			return true;
@@ -121,6 +153,10 @@ class PolynomialTest{
 		}
 
 		bool subtract_polynomials(){
+
+			// PURPOSE: Test overloaded - function, compares with expected output
+			// INPUTS: None
+			// OUTPUTS: Bool of pass/fail
 			
 			int temp[5] = {2, 7, 0, 4, 3};
 			int temp2[3] = {3, 4, 1};
@@ -133,10 +169,12 @@ class PolynomialTest{
 			b = Polynomial(temp2, y);
 
 			c = a - b;
+
+			//expected output
 			d = Polynomial(temp3, x);
 
-			// c.print();
-			// d.print();
+			c.print();
+			d.print();
 
 			ASSERT_TRUE(c==d);
 
@@ -145,6 +183,10 @@ class PolynomialTest{
 
 		bool multiply_polynomials(){
 			
+			// PURPOSE: Test overloaded * function, compares with expected output
+			// INPUTS: None
+			// OUTPUTS: Bool of pass/fail
+
 			int temp[3] = {7, 2, 3};
 			int temp2[2] = {1, 2};
 			int temp3[4] = {7, 16, 7, 6};
@@ -156,7 +198,11 @@ class PolynomialTest{
 			Polynomial b = Polynomial(temp2, y);
 
 			c = a * b;
+			//expected output
 			d = Polynomial(temp3, 4);
+
+			c.print();
+			d.print();
 
 			ASSERT_TRUE(c==d);
 
@@ -164,6 +210,10 @@ class PolynomialTest{
 		}
 
 		bool derive_polynomial(){
+
+			// PURPOSE: Test derivative function, compares with expected output
+			// INPUTS: None
+			// OUTPUTS: Bool of pass/fail
 			
 			int temp[3] = {-1, 2, 3};
 			int temp2[2] = {2, 6};
@@ -173,13 +223,22 @@ class PolynomialTest{
 			a = Polynomial(temp, x);
 
 			b = a.derivative();
+			//expected output
 			c = Polynomial(temp2, 2);
+
+			b.print();
+			c.print();
 
 			ASSERT_TRUE(b==c);
 			return true;
 		}
 
 	void run(){
+
+		// PURPOSE: Run all tests
+			// INPUTS: input
+			// OUTPUTS: Cout results, no output
+
 		if (test_constructors_array())
 			cout << "Test Constructors with Array input Passed" << endl;
 		else

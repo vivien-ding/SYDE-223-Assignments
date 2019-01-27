@@ -54,11 +54,7 @@ class Polynomial {
 		}
 	}
 
-<<<<<<< HEAD
 
-=======
-	// constructor that takes in file of coefficients
->>>>>>> 001065402b93f655449e3242c345ef2ef8782aa8
 	Polynomial(string fileName){
 
 		// PURPOSE: Construct a polynomial from a file, with file's first like as the polynomials degree
@@ -164,11 +160,7 @@ class Polynomial {
 
 	}
 
-<<<<<<< HEAD
 
-=======
-	// operator override - to subtract polynomials
->>>>>>> 001065402b93f655449e3242c345ef2ef8782aa8
 	Polynomial operator-(const Polynomial& target){
 
 		// PURPOSE: Overrides - operator to subtract another polynomial from *this
@@ -206,11 +198,6 @@ class Polynomial {
 
 	}
 
-<<<<<<< HEAD
-
-=======
-	//operator override * to multiply polynomials
->>>>>>> 001065402b93f655449e3242c345ef2ef8782aa8
 	Polynomial operator*(const Polynomial& target){
 		
 		// PURPOSE: Overrides * operator to multiply *this and another polynomial 

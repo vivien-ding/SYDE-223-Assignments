@@ -35,16 +35,17 @@ class PolynomialTest{
 
 	bool test_constructors2(){
 		int temp [7] = {1, 2, 3, 4, 5, 6,7};
+		vector<int> answer = {1, 2, 3, 4, 5};
 		Polynomial b = Polynomial(temp, 5);
 		ASSERT_TRUE((b.data.size() == 5));
-		ASSERT_TRUE((b.data == {1, 2, 3, 4, 5}));
+		ASSERT_TRUE((b.data == answer));
 		return true;
 	}
 
 	bool test_constructors3(){
 		Polynomial c = Polynomial(coefficient_file);
 		ASSERT_TRUE((c.data.size() == 5));
-		ASSERT_TRUE((c.data == {2, 9, 4, 1, 4}));
+		ASSERT_TRUE((c.data == [2, 9, 4, 1, 4]));
 		return true;
 	}
 
@@ -81,8 +82,6 @@ class PolynomialTest{
 
 		ASSERT_TRUE((a.data.size() == 5));
 		ASSERT_TRUE((a.data == {-1, 2, -1, 4, 3}));
-<<<<<<< HEAD
-=======
 		return true;
 	}
 

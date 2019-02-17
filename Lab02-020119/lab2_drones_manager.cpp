@@ -9,14 +9,21 @@ DronesManager::DronesManager() : first(NULL), last(NULL), size(0) {
 
 // PURPOSE: Destroys this instance and frees up all dynamically allocated memory
 DronesManager::~DronesManager() {
-	delete prev;
-	prev = NULL;
-	delete next;
-	next = NULL;
-	delete first;
-	first = NULL;
-	delete last;
-	last = NULL;
+	// delete prev;
+	// prev = NULL;
+	// delete next;
+	// next = NULL;
+	// delete first;
+	// first = NULL;
+	// delete last;
+	// last = NULL;
+
+	DroneRecord* temp = first;
+	while(temp!=NULL){
+		DroneRecord* cur = temp;
+		temp = temp->next;
+		delete cur;
+	}
 }
 
 // PURPOSE: Comparison operator to compare two DroneRecord instances
@@ -47,7 +54,7 @@ unsigned int DronesManager::get_size() const {
 
 // PURPOSE: Checks if the list is empty; returns true if the list is empty, false otherwise
 bool DronesManager::empty() const {
-	if (first == NULL){
+	if (first == NULL && last == NULL){
 		return true;
 	}
 	return false;
@@ -101,13 +108,13 @@ void DronesManager::print() const {
 	DroneRecord* p = first;
 
 	while (p != NULL){
-		cout << "Drone ID: " << p->DroneRecord.droneID << endl;
-		cout << "Range: " << p->DroneRecord.range << endl;
-		cout << "Year Bought: " << p->DroneRecord.yearBought << endl;
-		cout << "Drone Type: " << p->DroneRecord.droneType << endl;
-		cout << "Manufacturer: " << p->DroneRecord.manufacturer << endl;
-		cout << "Description: " << p->DroneRecord.description << endl;
-		cout << "Battery Type: " << p->DroneRecord.batteryType << endl;
+		cout << "Drone ID: " << p->droneID << endl;
+		cout << "Range: " << p->range << endl;
+		cout << "Year Bought: " << p->yearBought << endl;
+		cout << "Drone Type: " << p->droneType << endl;
+		cout << "Manufacturer: " << p->manufacturer << endl;
+		cout << "Description: " << p->description << endl;
+		cout << "Battery Type: " << p->batteryType << endl;
 		
 		p = p->next;
 	}

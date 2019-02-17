@@ -136,17 +136,16 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
 	}
 	
 	while (p != NULL){
-		count++;
+		
 		if (count == index){
-			DroneRecord* temp_prev = p->prev;
-			temp_prev->next = newValue;
-			p->prev = newValue;
+			newValue->prev = p->prev;
+			if(count != 0) newValue->prev->next = newValue;
 			newValue->next = p;
-			newValue->prev = temp_prev;
+			p->prev = newValue;
 			
-			// adds node in: sets previous node's "next" to newValue and sets the next node's previous to newValue
 			return true;
-		}  
+		}
+		count++;
 		p = p->next;
 	}
 	return false;
@@ -158,13 +157,15 @@ bool DronesManager::insert_front(DroneRecord value) {
 
 	if (first == NULL){
 		first = newValue;
+		last = newValue;
 		return true;
 	}
 	else{
 		DroneRecord* p = first;
 		p->prev = newValue;
 		first = newValue;
-		newValue->next = p;	
+		newValue->next = p;
+		newValue->prev = NULL;	
 		return true;
 
 	}
@@ -178,6 +179,7 @@ bool DronesManager::insert_back(DroneRecord value) {
 
 	if (first == NULL){
 		first = newValue;
+		last = newValue;
 		return true;
 	}
 	else{
@@ -185,6 +187,7 @@ bool DronesManager::insert_back(DroneRecord value) {
 		p->next = newValue;
 		last = newValue;
 		newValue->prev = p;
+		newValue->next = NULL;
 		return true;
 	}
 
@@ -200,20 +203,29 @@ bool DronesManager::remove(unsigned int index) {
 		return false;
 	}
 
-	while (p != NULL){
-		count++;
-		if (count == index){
-			DroneRecord* after_p = p->next;
-			DroneRecord* before_p = p->prev;
+	if (p == first && p == last){
+		delete p;
+		first = NULL;
+		last = NULL;
+		return true;
+	}
 
-			after_p->prev = before_p;
-			before_p->next = after_p
+	while (p != NULL){
+		
+		if (count == index){
+
+			if (p != first) p->prev->next = p->next;
+			if (p != last) p->next->prev = p->prev;
+
+			if (p==first) first = p->next;
+			if (p==last) last = p->prev;
 
 			delete p;
 			p = NULL;
 
 			return true;
-		}  
+		}
+		count++;
 		p = p->next;
 	}
 	return false;

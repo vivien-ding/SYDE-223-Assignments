@@ -9,14 +9,6 @@ DronesManager::DronesManager() : first(NULL), last(NULL), size(0) {
 
 // PURPOSE: Destroys this instance and frees up all dynamically allocated memory
 DronesManager::~DronesManager() {
-	// delete prev;
-	// prev = NULL;
-	// delete next;
-	// next = NULL;
-	// delete first;
-	// first = NULL;
-	// delete last;
-	// last = NULL;
 
 	DroneRecord* temp = first;
 	while(temp!=NULL){
@@ -24,6 +16,7 @@ DronesManager::~DronesManager() {
 		temp = temp->next;
 		delete cur;
 	}
+
 }
 
 // PURPOSE: Comparison operator to compare two DroneRecord instances
@@ -54,7 +47,7 @@ unsigned int DronesManager::get_size() const {
 
 // PURPOSE: Checks if the list is empty; returns true if the list is empty, false otherwise
 bool DronesManager::empty() const {
-	if (first == NULL && last == NULL){
+	if (first == NULL){
 		return true;
 	}
 	return false;
@@ -71,13 +64,15 @@ DronesManager::DroneRecord DronesManager::select(unsigned int index) const {
 	}
 
 	while (p != NULL){
-		count++;
+		
 		if (count == index){
-			return p->DroneRecord;
+			return *p;
 		}
+
+		count++;
 		p = p->next;
 	}
-	return last->DroneRecord;
+	return *last;
 
 	// need to figure out how to access DroneRecord elements properly (https://www.geeksforgeeks.org/write-a-function-to-get-nth-node-in-a-linked-list/)
 }
@@ -93,11 +88,12 @@ unsigned int DronesManager::search(DroneRecord value) const {
 	}
 
 	while (p != NULL){
-		index++;
-		if (p->DroneRecord == value){
+		
+		if (*p == value){
 			return index;
-		}  // still not sure if thats how you acess the instance of DroneRecord at p
+		}  
 		p = p->next;
+		index++;
 	}
 
 	return get_size();
@@ -127,11 +123,12 @@ void DronesManager::print() const {
 bool DronesManager::insert(DroneRecord value, unsigned int index) {
 	int count = 0;
 	DroneRecord* p = first;
-	DroneRecord* newValue = &value;
+	DroneRecord* newValue = new DroneRecord(value.droneID, value.range, value.yearBought, value.droneType, value.manufacturer, value.description, value.batteryType);
 
 	//if list is empty insert value at first node
 	if (p == NULL){
-		first->DroneRecord = newValue;
+		first = newValue;
+		last = newValue;
 		return true;
 	}
 	
@@ -153,13 +150,14 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
 
 // PURPOSE: Inserts a value at the beginning of the list; the list is not sorted
 bool DronesManager::insert_front(DroneRecord value) {
-	DroneRecord* newValue = &value;
+	DroneRecord* newValue = new DroneRecord(value.droneID, value.range, value.yearBought, value.droneType, value.manufacturer, value.description, value.batteryType);
 
 	if (first == NULL){
 		first = newValue;
 		last = newValue;
 		return true;
 	}
+
 	else{
 		DroneRecord* p = first;
 		p->prev = newValue;
@@ -175,7 +173,7 @@ bool DronesManager::insert_front(DroneRecord value) {
 
 // PURPOSE: Inserts a value at the end of the list; the list is not sorted
 bool DronesManager::insert_back(DroneRecord value) {
-	DroneRecord* newValue = &value;
+	DroneRecord* newValue = new DroneRecord(value.droneID, value.range, value.yearBought, value.droneType, value.manufacturer, value.description, value.batteryType);
 
 	if (first == NULL){
 		first = newValue;
@@ -238,15 +236,19 @@ bool DronesManager::remove_front() {
 		return false;
 	}
 
-	else{
-		DroneRecord* p = first->next;
-		delete p->prev;
-		p->prev = NULL;
-		first = p;
+	if (first->next == NULL){
+		delete first;
+		first = NULL;
+		last = NULL;
 		return true;
 	}
-	
-	return false;
+
+	DroneRecord* p = first->next;
+	delete p->prev;
+	p->prev = NULL;
+	first = p;
+	return true;
+
 }
 
 bool DronesManager::remove_back() {
@@ -254,22 +256,27 @@ bool DronesManager::remove_back() {
 		return false;
 	}
 
-	else{
-		DroneRecord* p = last->prev;
-		delete p->next;
-		p->next = NULL;
-		last = p;
+	if (last->prev == NULL){
+		delete last;
+		last = NULL;
+		first = NULL;
 		return true;
 	}
 
-	return false;
+
+	DroneRecord* p = last->prev;
+	delete p->next;
+	p->next = NULL;
+	last = p;
+	return true;
+
 }
 
 // PURPOSE: Replaces value at the given index with the given value; the list is not sorted	
 // if the index is invalid, replacement is rejected
 bool DronesManager::replace(unsigned int index, DroneRecord value) {
 	DroneRecord* p = first;
-	DroneRecord* newValue = &value;
+	DroneRecord* newValue = new DroneRecord(value.droneID, value.range, value.yearBought, value.droneType, value.manufacturer, value.description, value.batteryType);
 	int count = 0;
 
 	if (p == NULL){
@@ -277,11 +284,22 @@ bool DronesManager::replace(unsigned int index, DroneRecord value) {
 	}
 
 	while (p != NULL){
-		count++;
+		
 		if (count == index){
-			p = newValue;
+			newValue->prev = p->prev;
+			newValue->next = p->next;
+			
+			if (p != first) p->prev->next = newValue;
+			if (p != last) p->next->prev = newValue;
+
+			if (p == first) first = newValue;
+			if (p == last) last = newValue;
+
+			delete p;
 			return true;
-		}  
+		}
+
+		count++;
 		p = p->next;
 	}
 	
@@ -290,20 +308,24 @@ bool DronesManager::replace(unsigned int index, DroneRecord value) {
 
 // PURPOSE: Reverses the linked list
 bool DronesManager::reverse_list() {
-	DroneRecord* before = NULL;
 	DroneRecord* p = first;
-	DroneRecord* after;
+	DroneRecord* newFirst = first;
 
 	if (first == NULL){
 		return false;
 	}
 	
 	while (p != NULL){
-		after = p->next;
+		DroneRecord* before = p->prev;
+		p->prev = p->next;
 		p->next = before;
-		before = p;
-		p = after;
+		newFirst = p;
+		p = p-> prev;
+
 	}
+
+	last = first;
+	first = newFirst;
 
 	return true;
 }
@@ -320,7 +342,7 @@ bool DronesManagerSorted::is_sorted_asc() const {
 	}
 
 	while (p_next != NULL){
-		if (*p_next.droneID < *p.droneID){ //not sure if thats the right syntax for checking the id of the drone that pointer is pointing to
+		if ( (p_next->droneID) < (p->droneID) ){ //not sure if thats the right syntax for checking the id of the drone that pointer is pointing to
 			return false;
 		}
 
@@ -341,7 +363,7 @@ bool DronesManagerSorted::is_sorted_desc() const {
 	}
 
 	while (p_next != NULL){
-		if (*p_next.droneID > *p.droneID){
+		if (p_next->droneID > p->droneID){
 			return false;
 		}
 
@@ -361,19 +383,15 @@ bool DronesManagerSorted::insert_sorted_asc(DroneRecord val) {
 	}
 
 	DroneRecord* p = first;
-	DroneRecord* newVal = &val;
+	int count = 0;
 
 	while (p != NULL){
-		if (*p.droneID > val.droneID){
-			// insert newVal before p
-			DroneRecord* temp_prev = p->prev;
-			p->prev = newVal;
-			temp_prev->next = newVal;
-			newVal->next = p;
-			newVal->prev = temp_prev;
+		if ((p->droneID) > (val.droneID)){
+			//insert val before p
+			insert(val, count);
 			return true;
 		}
-
+		count++;
 		p = p->next;
 	}
 
@@ -381,32 +399,74 @@ bool DronesManagerSorted::insert_sorted_asc(DroneRecord val) {
 }
 
 bool DronesManagerSorted::insert_sorted_desc(DroneRecord val) {
+	
 	if (is_sorted_desc() == false){
 		return false;
 	}
 
 	DroneRecord* p = first;
-	DroneRecord* newVal = &val;
+	int count = 0;
 
 	while (p != NULL){
-		if (*p.droneID < val.droneID){
-			// insert newVal before p
-			DroneRecord* temp_prev = p->prev;
-			p->prev = newVal;
-			temp_prev->next = newVal;
-			newVal->next = p;
-			newVal->prev = temp_prev;
+		if ((p->droneID) < (val.droneID)){
+			//insert val before p
+			insert(val, count);
 			return true;
 		}
-
+		count++;
 		p = p->next;
 	}
 
 	return false;
+
 }
 
 void DronesManagerSorted::sort_asc() {
+
+	cout << "hello";
+	DronesManagerSorted result;
+
+	DroneRecord *p = first;
+	
+
+	while(p != NULL){
+		DroneRecord copy = *p;
+		result.insert_sorted_asc(*p);
+		p = p->next;
+	}
+
+
+
+	DroneRecord* temp = first;
+	while(temp != NULL){
+		DroneRecord* cur = temp;
+		temp = temp->next;
+		delete cur;
+	}
+
+	*this = result;
+
 }
     
 void DronesManagerSorted::sort_desc() {
+
+	DronesManagerSorted result;
+
+	DroneRecord*p = first;
+
+	while(p != NULL){
+		DroneRecord copy = *p;
+		result.insert_sorted_desc(copy);
+		p = p->next;
+	}
+
+	DroneRecord* temp = first;
+	while(temp != NULL){
+		DroneRecord* cur = temp;
+		temp = temp->next;
+		delete cur;
+	}
+
+	*this = result;
+
 }

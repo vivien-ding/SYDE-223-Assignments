@@ -119,45 +119,140 @@ public:
 
     // PURPOSE: inserting at different positions in the list
     bool test7() {
-		return false;
+		DronesManager manager;
+		const int num_elems = 8;
+		for (int i = 0; i < num_elems; i++) {
+			ASSERT_TRUE(manager.insert_back(DronesManager::DroneRecord(i)))
+		}
+
+		// check for inserting drone records 8, 9, 10 at index 0, 3, 7
+		ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(8), 0))
+		ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(9), 3))
+
+		// list size should be 10 now
+		ASSERT_TRUE(manager.get_size() == 10)
+
+		ASSERT_TRUE(*manager.first == DronesManager::DroneRecord(8))
+		ASSERT_TRUE(*(manager.first->next->next->next) == DronesManager::DroneRecord(9))
+
+		// check values are inserted at proper indexs
+		int test_values[10] = {8, 0, 1, 9, 2, 3, 4, 5, 6, 7};
+		for (int i = 0; i < num_elems; i++) {
+			ASSERT_TRUE(manager.select(i) == DronesManager::DroneRecord(test_values[i]))
+		}
+
+		return true;
     }
 
     // PURPOSE: try to remove too many elements, then add a few elements
     bool test8() {
-    	return false;
+		DronesManager manager;
+		const int num_elems = 4;
+		for (int i = 0; i < num_elems; i++) {
+			ASSERT_TRUE(manager.insert_back(DronesManager::DroneRecord(i)))
+		}
+
+		ASSERT_TRUE(manager.remove(0))
+		ASSERT_TRUE(manager.remove(2))
+		ASSERT_TRUE(manager.remove(2) == false)
+		ASSERT_TRUE(manager.remove(3) == false)
+
+		ASSERT_TRUE(manager.get_size() == 2)
+
+		const int num_elems_2 = 3;
+		for (int i = 0; i < num_elems_2; i++) {
+			ASSERT_TRUE(manager.insert_back(DronesManager::DroneRecord(i+3)))
+		}
+
+		ASSERT_TRUE(manager.get_size() == 5)
+
+		int test_values[5] = {1, 2, 3, 4, 5};
+		for (int i = 0; i < num_elems; i++) {
+			ASSERT_TRUE(manager.select(i) == DronesManager::DroneRecord(test_values[i]))
+		}
+
+    	return true;
     }
 
  	// PURPOSE: lots of inserts and deletes, some of them invalid
-	bool test9() {
-		return false;
+	bool test9()
+		DronesManager manager;
+		const int num_elems = 8;
+		for (int i = 0; i < num_elems; i++) {
+			ASSERT_TRUE(manager.insert_back(DronesManager::DroneRecord(i)))
+		} 
+
+		ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(8), 0))
+		ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(9), 0))
+		ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(11), 20) == false)
+		ASSERT_TRUE(manager.remove(9))
+		ASSERT_TRUE(manager.remove(0) == false)
+		ASSERT_TRUE(manager.remove(15) == false)
+
+		ASSERT_TRUE(manager.get_size() == 10)
+
+		ASSERT_TRUE(*manager.first == DronesManager::DroneRecord(9))
+		ASSERT_TRUE(*(manager.first->next) == DronesManager::DroneRecord(8))
+		ASSERT_TRUE(*manager.last == DronesManager::DroneRecord(7))
+
+		int test_values[10] = {9, 8, 0, 1, 2, 3, 4, 5, 6 ,7};
+		for (int i = 0; i < num_elems; i++) {
+			ASSERT_TRUE(manager.select(i) == DronesManager::DroneRecord(test_values[i]))
+		}
+
+		DronesManager empty_manager;
+		ASSERT_TRUE(manager.remove(0) == false)
+		ASSERT_TRUE(*manager.first == NULL && *manager.last == NULL)
+
+		return true;
 	}
 
 	// PURPOSE: insert into an unsorted list, then sort the list
 	bool test10() {
-		DronesManagerSorted manager1;
+		DronesManagerSorted manager;
 
-		manager1.insert_back(DronesManager::DroneRecord(3));
-		manager1.insert_back(DronesManager::DroneRecord(1));
-		manager1.insert_back(DronesManager::DroneRecord(4));
-    manager1.insert_back(DronesManager::DroneRecord(10));
-    manager1.insert_back(DronesManager::DroneRecord(5));
-    manager1.insert_back(DronesManager::DroneRecord(7));
-    manager1.insert_back(DronesManager::DroneRecord(10));
-		manager1.sort_asc();
+		manager.insert_back(DronesManager::DroneRecord(3));
+		manager.insert_back(DronesManager::DroneRecord(1));
+		manager.insert_back(DronesManager::DroneRecord(4));
+		manager.insert_back(DronesManager::DroneRecord(10));
+		manager.insert_back(DronesManager::DroneRecord(5));
 
+		ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(11), 0))
+		ASSERT_TRUE(manager.insert(DronesManager::DroneRecord(12), 3))
+
+		int test_values[7] = {11, 3, 1, 12, 4, 10, 5};
+		for (int i = 0; i < num_elems; i++) {
+			ASSERT_TRUE(manager.select(i) == DronesManager::DroneRecord(test_values[i]))
+		}
+
+		ASSERT_TRUE(manager.sort_asc())
 		ASSERT_TRUE(manager1.is_sorted_asc());
+
+
     return true;
 
 	}
 
 	// PURPOSE: insert and remove into sorted manager in ascending order
 	bool test11() {
-		return false;
+		DronesManagerSorted manager1;
+
+		manager1.insert_back(DronesManager::DroneRecord(3));
+		manager1.insert_back(DronesManager::DroneRecord(1));
+		manager1.insert_back(DronesManager::DroneRecord(4));
+		manager1.insert_back(DronesManager::DroneRecord(10));
+		manager1.insert_back(DronesManager::DroneRecord(5));
+
+		ASSERT_TRUE(manager1.is_sorted_asc());
+
+		return true;
 	}
 
 	// PURPOSE: insert and remove into sorted manager in descending order
 	bool test12() {
-		return false;
+
+
+		return true;
 	}
 };
 

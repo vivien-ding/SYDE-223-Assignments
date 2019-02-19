@@ -132,6 +132,10 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
 		return true;
 	}
 
+	if (index < 0){
+		return false;
+	}
+
 	while (p != NULL){
 
 		if (count == index){

@@ -175,7 +175,7 @@ public:
     }
 
  	// PURPOSE: lots of inserts and deletes, some of them invalid
-	bool test9()
+	bool test9() {
 		DronesManager manager;
 		const int num_elems = 8;
 		for (int i = 0; i < num_elems; i++) {

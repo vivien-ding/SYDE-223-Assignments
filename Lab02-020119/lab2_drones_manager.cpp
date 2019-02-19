@@ -141,6 +141,7 @@ bool DronesManager::insert(DroneRecord value, unsigned int index) {
 		if (count == index){
 			newValue->prev = p->prev;
 			if(count != 0) newValue->prev->next = newValue;
+			if(count == 0) first = newValue;
 			newValue->next = p;
 			p->prev = newValue;
 

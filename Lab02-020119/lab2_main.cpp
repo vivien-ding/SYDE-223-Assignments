@@ -1,3 +1,6 @@
+//Written by Vivien (Zhaowei) Ding & Christina Lim 
+//Student numbers: 20654920 & 20724130
+
 #include <iostream>
 #include <string>
 

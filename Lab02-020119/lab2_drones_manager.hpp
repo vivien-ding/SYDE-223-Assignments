@@ -1,3 +1,6 @@
+//Written by Vivien (Zhaowei) Ding & Christina Lim 
+//Student numbers: 20654920 & 20724130
+
 #ifndef DRONES_MANAGER_HPP
 #define DRONES_MANAGER_HPP
 #include <string>

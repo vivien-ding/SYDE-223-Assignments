@@ -1,3 +1,6 @@
+//Written by Vivien (Zhaowei) Ding & Christina Lim 
+//Student numbers: 20654920 & 20724130
+
 #include "lab2_drones_manager.hpp"
 
 // TODO: Implement all of the listed functions below
@@ -378,6 +381,8 @@ bool DronesManagerSorted::is_sorted_desc() const {
     return true;
 
 }
+
+
 // MUTATORS
 
 // PURPOSE: Inserts a value so that the list remains sorted in ascending order
@@ -445,6 +450,7 @@ bool DronesManagerSorted::insert_sorted_desc(DroneRecord val) {
 
 }
 
+// PURPOSE: Sorts the list into ascending (non-descending) order
 void DronesManagerSorted::sort_asc() {
 
 	DronesManagerSorted* result = new DronesManagerSorted();
@@ -469,6 +475,7 @@ void DronesManagerSorted::sort_asc() {
 
 }
 
+// PURPOSE: Sorts the list into descending (non-ascending) order
 void DronesManagerSorted::sort_desc() {
 
 	DronesManagerSorted* result = new DronesManagerSorted();

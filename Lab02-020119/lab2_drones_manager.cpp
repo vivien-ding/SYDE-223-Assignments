@@ -230,7 +230,7 @@ bool DronesManager::remove(unsigned int index) {
 		}
 		count++;
 		p = p->next;
-	}
+	}5
 	return false;
 }
 

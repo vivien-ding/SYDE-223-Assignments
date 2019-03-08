@@ -68,9 +68,18 @@ int FridgeOrganizer::number_of_portions() {
 // insert the portion into the first empty stack from the back
 bool FridgeOrganizer::add_meal_portion(string n_name, string n_expiry) {
 	// step1 create a new meal portion object on the heap
-	
+	MealPortion *new_meal = new MealPortion(n_name, n_expiry);
 	// step2 grab a pointer to the last stack from the back
-	
+	int cur_stack_index = 0;
+	for (list<stack<MealPortion*>*>::iterator i = stacks.begin(); i != stacks.end(); ++i, ++cur_stack_index) {
+		cout << "STACK " << cur_stack_index << endl;
+		// iterate through stack elements
+		stack<MealPortion*> cur_stack = **i; int cur_stack_size = cur_stack.size();
+		if (i == n_stack_number){
+			
+		}
+	}
+	MealPortion *lastStack = 
 	// step3 if the stacks list is not empty and there is space in the current stack
 	// step3.1 insert the new meal into the current stack
 	
@@ -91,7 +100,7 @@ bool FridgeOrganizer::add_meal_portion(string n_name, string n_expiry) {
 // if the fridge is empty, returns ("EMPTY", "N/A")
 FridgeOrganizer::MealPortion FridgeOrganizer::remove_meal_portion() {
 	// step1 create a temporary MealPortion("EMPTY", "N/A") object called m
-	
+	MealPortion *m = new MealPortion("EMPTY", "N/A");
 	// step2 if the stacks list is empty
 	// step2.1 return corresponding m value
 

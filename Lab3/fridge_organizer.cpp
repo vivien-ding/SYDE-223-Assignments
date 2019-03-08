@@ -46,11 +46,21 @@ void FridgeOrganizer::print_stacks() {
 // TO-DO: implement the number_of_portions() method
 // PURPOSE: Returns the number of meal portions in the fridge
 int FridgeOrganizer::number_of_portions() {
+
 	// step1 initialize portion count to 0
+	int portion_count = 0;
+	
 	// step2 use list iterator to iterate through list elements; see print function
 	// step2.1 add current stack size to portion count
+	int cur_stack_index = 0;
+	for (list<stack<MealPortion*>*>::iterator i = stacks.begin(); i != stacks.end(); ++i, ++cur_stack_index) {
+		// iterate through stack elements
+		stack<MealPortion*> cur_stack = **i; int cur_stack_size = cur_stack.size();
+		portion_count+= cur_stack_size;
+	}
+	
 	// step3 return final portion count
-	return 0;
+	return portion_count;
 }	
 
 // TO-DO: implement the add_meal_portion() method

@@ -52,10 +52,10 @@ int FridgeOrganizer::number_of_portions() {
 	
 	// step2 use list iterator to iterate through list elements; see print function
 	// step2.1 add current stack size to portion count
-	int cur_stack_index = 0;
-	for (list<stack<MealPortion*>*>::iterator i = stacks.begin(); i != stacks.end(); ++i, ++cur_stack_index) {
+	for (list<stack<MealPortion*>*>::iterator i = stacks.begin(); i != stacks.end(); ++i) {
 		// iterate through stack elements
-		stack<MealPortion*> cur_stack = **i; int cur_stack_size = cur_stack.size();
+		stack<MealPortion*> cur_stack = **i; 
+		int cur_stack_size = cur_stack.size();
 		portion_count+= cur_stack_size;
 	}
 	
@@ -70,16 +70,22 @@ bool FridgeOrganizer::add_meal_portion(string n_name, string n_expiry) {
 	// step1 create a new meal portion object on the heap
 	MealPortion *new_meal = new MealPortion(n_name, n_expiry);
 	// step2 grab a pointer to the last stack from the back
-	int cur_stack_index = 0;
-	for (list<stack<MealPortion*>*>::iterator i = stacks.begin(); i != stacks.end(); ++i, ++cur_stack_index) {
-		cout << "STACK " << cur_stack_index << endl;
-		// iterate through stack elements
-		stack<MealPortion*> cur_stack = **i; int cur_stack_size = cur_stack.size();
-		if (i == n_stack_number){
-			
-		}
+	stack<MealPortion*> last_stack = stacks.back();
+
+	if (last_stack.size() < stack_capacity){
+		last_stack.push(new_meal);
+		return true;
 	}
-	MealPortion *lastStack = 
+	else if(last_stack != stacks.end()){
+		stack<MealPortion*> next_stack;
+		next_stack.push(new_meal);
+		stacks.push_back(next_stack);
+		return true;
+	}
+	else{
+		return false;
+	}
+	
 	// step3 if the stacks list is not empty and there is space in the current stack
 	// step3.1 insert the new meal into the current stack
 	
@@ -92,7 +98,6 @@ bool FridgeOrganizer::add_meal_portion(string n_name, string n_expiry) {
 	// step5.1 return false
 	
 	// step6 return true if addition was successful
-	return true;
 }	
 
 // TO-DO: implement the remove_meal_portion() method
@@ -103,16 +108,26 @@ FridgeOrganizer::MealPortion FridgeOrganizer::remove_meal_portion() {
 	MealPortion *m = new MealPortion("EMPTY", "N/A");
 	// step2 if the stacks list is empty
 	// step2.1 return corresponding m value
+	if (stacks.empty()){
+		return &m;
+	}
 
 	// step3 grab a pointer to the stack at the back of the list
 	// step4 set m's value to match the value of top element of that stack
 	// step5 free memory for the top element and pop it from the stack
+	stack<MealPortion*> last_stack = stacks.back();
+	*m = last_stack.top();
+	last_stack.pop();
 
 	// step6 if the current stack is empty
 	// step6.1 free its memory and remove it from the list
+	if (last_stack.empty()){
+		stacks.pop_back();
+	}
 
 	// step7 return corresponding m value
-	return MealPortion("","");
+	return &m;
+	//return MealPortion("","");
 }
 
 // TO-DO: implement the find_meal_portion_by_expiry() method

@@ -109,7 +109,7 @@ FridgeOrganizer::MealPortion FridgeOrganizer::remove_meal_portion() {
 	// step2 if the stacks list is empty
 	// step2.1 return corresponding m value
 	if (stacks.empty()){
-		return &m;
+		return *m;
 	}
 
 	// step3 grab a pointer to the stack at the back of the list
@@ -124,9 +124,8 @@ FridgeOrganizer::MealPortion FridgeOrganizer::remove_meal_portion() {
 	if (last_stack.empty()){
 		stacks.pop_back();
 	}
-
 	// step7 return corresponding m value
-	return &m;
+	return *m;
 	//return MealPortion("","");
 }
 
@@ -137,9 +136,13 @@ FridgeOrganizer::MealPortion FridgeOrganizer::remove_meal_portion() {
 // this method may not disrupt other functionality
 FridgeOrganizer::MealPortion FridgeOrganizer::find_meal_portion_by_expiry() {
 	// step1 create a temporary MealPortion("EMPTY", "N/A") object called min
+	MealPortion *min = new MealPortion("EMPTY", "N/A");
 
 	// step2 if the stacks list is empty
 	// step2.1 return min value
+	if (stacks.empty()){
+		return *min;
+	}
 
 	// step3 use list iterator to go through list elements; see print function
 	// step3.1 create a local copy of the current stack; also, store its size as a variable
@@ -149,8 +152,23 @@ FridgeOrganizer::MealPortion FridgeOrganizer::find_meal_portion_by_expiry() {
 	// step3.2.2.1 copy the stack top's value into min
 	// step3.2.3 pop the top element from the stack; do not free its memory		
 
+	for (list<stack<MealPortion*>*>::iterator i = stacks.begin(); i != stacks.end(); ++i) {
+			stack<MealPortion*> cur_stack = **i; 
+			int cur_stack_size = cur_stack.size();
+		
+			// iterate through stack elements
+			for (int cur_element_index = 0; cur_element_index < cur_stack_size; ++cur_element_index) {
+				MealPortion *top = cur_stack.top();
+				// not sure if syntax is  m->expiry or *m.expiry
+				if (top->expiry < min->expiry){
+					min = top;
+				}
+				cur_stack.pop();
+			}
+			
+		}
 	// step4 return corresponding min value
-	return MealPortion("","");
+	return *min;
 }
 
 // PURPOSE: Tests FridgeOrganizer constructor and basic item insertion

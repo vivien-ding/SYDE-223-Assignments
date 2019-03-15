@@ -1,4 +1,4 @@
-g+#ifndef STACKS_HPP
+#ifndef STACKS_HPP
 #define STACKS_HPP
 using namespace std;
 

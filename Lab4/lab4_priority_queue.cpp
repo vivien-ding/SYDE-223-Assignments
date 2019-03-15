@@ -27,14 +27,6 @@ bool PriorityQueue::full() const {
 	return (size + 1 == capacity);
 }
 
-	} else {
-			cout << heap[i];
-		}
-	}
-
-
-}
-
 // PURPOSE: Returns the max element of the priority queue without removing it
 // if the priority queue is empty, it returns (-1, "N/A")
 PriorityQueue::TaskItem PriorityQueue::max() const {

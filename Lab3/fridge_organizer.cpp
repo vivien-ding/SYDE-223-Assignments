@@ -134,15 +134,9 @@ FridgeOrganizer::MealPortion FridgeOrganizer::remove_meal_portion() {
 	if (last_stack->empty()){
 		stacks.pop_back();
 	}
-<<<<<<< HEAD
-	// step7 return corresponding m value
-	return *m;
-	//return MealPortion("","");
-=======
 
 	// // step7 return corresponding m value
 	return *m;
->>>>>>> 1d5a848db7a64bf43e08ce299c4b91eac5487409
 }
 
 // TO-DO: implement the find_meal_portion_by_expiry() method
@@ -153,21 +147,11 @@ FridgeOrganizer::MealPortion FridgeOrganizer::remove_meal_portion() {
 FridgeOrganizer::MealPortion FridgeOrganizer::find_meal_portion_by_expiry() {
 	// step1 create a temporary MealPortion("EMPTY", "N/A") object called min
 	MealPortion *min = new MealPortion("EMPTY", "N/A");
-<<<<<<< HEAD
-
-	// step2 if the stacks list is empty
-	// step2.1 return min value
-	if (stacks.empty()){
-		return *min;
-	}
-
-=======
 	// step2 if the stacks list is empty
 	// step2.1 return min value
 	if (stacks.empty()){
 		return MealPortion("","");
 	}
->>>>>>> 1d5a848db7a64bf43e08ce299c4b91eac5487409
 	// step3 use list iterator to go through list elements; see print function
 	// step3.1 create a local copy of the current stack; also, store its size as a variable
 	// step3.2 iterate through the copy of the current stack using index value
@@ -180,23 +164,6 @@ FridgeOrganizer::MealPortion FridgeOrganizer::find_meal_portion_by_expiry() {
 		// iterate through stack elements
 		stack<MealPortion*> cur_stack = **i; int cur_stack_size = cur_stack.size();
 
-<<<<<<< HEAD
-	for (list<stack<MealPortion*>*>::iterator i = stacks.begin(); i != stacks.end(); ++i) {
-			stack<MealPortion*> cur_stack = **i; 
-			int cur_stack_size = cur_stack.size();
-		
-			// iterate through stack elements
-			for (int cur_element_index = 0; cur_element_index < cur_stack_size; ++cur_element_index) {
-				MealPortion *top = cur_stack.top();
-				// not sure if syntax is  m->expiry or *m.expiry
-				if (top->expiry < min->expiry){
-					min = top;
-				}
-				cur_stack.pop();
-			}
-			
-		}
-=======
 		for (int cur_element_index = 0; cur_element_index < cur_stack_size; ++cur_element_index) {
 			if (cur_stack.top()->expiry < min->expiry){
 				min = cur_stack.top();
@@ -204,7 +171,6 @@ FridgeOrganizer::MealPortion FridgeOrganizer::find_meal_portion_by_expiry() {
 			cur_stack.pop();
 		}
 	}
->>>>>>> 1d5a848db7a64bf43e08ce299c4b91eac5487409
 	// step4 return corresponding min value
 	return *min;
 }

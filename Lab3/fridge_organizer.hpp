@@ -1,3 +1,6 @@
+//Written by Vivien (Zhaowei) Ding & Christina Lim 
+//Student numbers: 20654920 & 20724130
+
 #ifndef STACKS_HPP
 #define STACKS_HPP
 using namespace std;

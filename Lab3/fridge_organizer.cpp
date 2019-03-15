@@ -1,3 +1,6 @@
+//Written by Vivien (Zhaowei) Ding & Christina Lim 
+//Student numbers: 20654920 & 20724130
+
 #include <iostream>
 #include <list> // see http://www.cplusplus.com/reference/list/list/ for additional reference
 #include <stack> // see http://www.cplusplus.com/reference/stack/stack/ for additional reference

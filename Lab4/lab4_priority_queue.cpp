@@ -27,7 +27,19 @@ bool PriorityQueue::full() const {
 	return (size + 1 == capacity);
 }
 
+// PURPOSE: Prints the contents of the priority queue; format not specified
+void PriorityQueue::print() const {
+	cout << "Number of elements: " << size << " Capacity: " << capacity << endl;
+	if (size == 0) {
+		cout << "No elements";
+// PURPOSE: Prints the contents of the priority queue; format not specified
+void PriorityQueue::print() const {
+	cout << "Number of elements: " << size << " Capacity: " << capacity << endl;
+	if (size == 0) {
+		cout << "No elements";
 	} else {
+		cout << "Elements: ";
+		for (int i = 1; i<= size; i++) {
 			cout << heap[i];
 		}
 	}
@@ -53,8 +65,6 @@ bool PriorityQueue::enqueue( TaskItem val ) {
 // re-arranges the remaining elements back into a heap
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
-// PURPOSE: Returns true if the priority queue is full; false, otherwise
-bool PriorityQueue::full() const {
-	return (size + 1 == capacity);
+bool PriorityQueue::dequeue() {
 	return false;
 }

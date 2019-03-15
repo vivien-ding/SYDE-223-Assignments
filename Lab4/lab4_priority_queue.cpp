@@ -47,7 +47,11 @@ void PriorityQueue::print() const {
 // PURPOSE: Returns the max element of the priority queue without removing it
 // if the priority queue is empty, it returns (-1, "N/A")
 PriorityQueue::TaskItem PriorityQueue::max() const {
-	return TaskItem(-1, "NULL");
+	int max_element = 0;
+	if (empty()) return TaskItem(-1, "NULL");
+	else{
+
+	}
 }
 
 // PURPOSE: Inserts the given value into the priority queue

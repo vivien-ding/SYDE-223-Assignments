@@ -1,3 +1,6 @@
+//Written by Vivien (Zhaowei) Ding & Christina Lim 
+//Student numbers: 20654920 & 20724130
+
 #include <iostream>
 #include <list> // see http://www.cplusplus.com/reference/list/list/ for additional reference
 #include <stack> // see http://www.cplusplus.com/reference/stack/stack/ for additional reference
@@ -69,35 +72,42 @@ int FridgeOrganizer::number_of_portions() {
 bool FridgeOrganizer::add_meal_portion(string n_name, string n_expiry) {
 	// step1 create a new meal portion object on the heap
 	MealPortion *new_meal = new MealPortion(n_name, n_expiry);
-	// step2 grab a pointer to the last stack from the back
-	stack<MealPortion*> last_stack = stacks.back();
 
-	if (last_stack.size() < stack_capacity){
-		last_stack.push(new_meal);
-		return true;
-	}
-	else if(last_stack != stacks.end()){
-		stack<MealPortion*> next_stack;
-		next_stack.push(new_meal);
-		stacks.push_back(next_stack);
-		return true;
-	}
-	else{
-		return false;
-	}
+	// step2 grab a pointer to the last stack from the back
+	stack<MealPortion*>* last_stack = NULL;
 	
+	if (!stacks.empty()) {
+		last_stack = stacks.back();
+	}
+
 	// step3 if the stacks list is not empty and there is space in the current stack
 	// step3.1 insert the new meal into the current stack
+	if (!stacks.empty() && last_stack && last_stack->size() < stack_capacity){
+		last_stack->push(new_meal);
+	}
 	
 	// step4 else if there is space for a new stack
 	// step4.1 create a new stack with new stack<MealPortion*>
 	// step4.2 add the meal portion to that stack
 	// step4.3 add the new stack to the stacks list
-	
+
+	else if (stacks.size() < usable_stacks){
+		stack<MealPortion*>* new_stack = new stack<MealPortion*>;
+		new_stack->push(new_meal);
+		stacks.push_back(new_stack);		
+	}
 	// step5 else there is no more space for new stacks
 	// step5.1 return false
+	// else return false;
 	
+	else{
+		return false;
+	}
+
 	// step6 return true if addition was successful
+	return true;
+
+	
 }	
 
 // TO-DO: implement the remove_meal_portion() method
@@ -115,18 +125,24 @@ FridgeOrganizer::MealPortion FridgeOrganizer::remove_meal_portion() {
 	// step3 grab a pointer to the stack at the back of the list
 	// step4 set m's value to match the value of top element of that stack
 	// step5 free memory for the top element and pop it from the stack
-	stack<MealPortion*> last_stack = stacks.back();
-	*m = last_stack.top();
-	last_stack.pop();
+	stack<MealPortion*>* last_stack = stacks.back();
+	m = last_stack->top();
+	last_stack->pop();
 
-	// step6 if the current stack is empty
-	// step6.1 free its memory and remove it from the list
-	if (last_stack.empty()){
+	// // step6 if the current stack is empty
+	// // step6.1 free its memory and remove it from the list
+	if (last_stack->empty()){
 		stacks.pop_back();
 	}
+<<<<<<< HEAD
 	// step7 return corresponding m value
 	return *m;
 	//return MealPortion("","");
+=======
+
+	// // step7 return corresponding m value
+	return *m;
+>>>>>>> 1d5a848db7a64bf43e08ce299c4b91eac5487409
 }
 
 // TO-DO: implement the find_meal_portion_by_expiry() method
@@ -137,6 +153,7 @@ FridgeOrganizer::MealPortion FridgeOrganizer::remove_meal_portion() {
 FridgeOrganizer::MealPortion FridgeOrganizer::find_meal_portion_by_expiry() {
 	// step1 create a temporary MealPortion("EMPTY", "N/A") object called min
 	MealPortion *min = new MealPortion("EMPTY", "N/A");
+<<<<<<< HEAD
 
 	// step2 if the stacks list is empty
 	// step2.1 return min value
@@ -144,6 +161,13 @@ FridgeOrganizer::MealPortion FridgeOrganizer::find_meal_portion_by_expiry() {
 		return *min;
 	}
 
+=======
+	// step2 if the stacks list is empty
+	// step2.1 return min value
+	if (stacks.empty()){
+		return MealPortion("","");
+	}
+>>>>>>> 1d5a848db7a64bf43e08ce299c4b91eac5487409
 	// step3 use list iterator to go through list elements; see print function
 	// step3.1 create a local copy of the current stack; also, store its size as a variable
 	// step3.2 iterate through the copy of the current stack using index value
@@ -151,7 +175,12 @@ FridgeOrganizer::MealPortion FridgeOrganizer::find_meal_portion_by_expiry() {
 	// step3.2.2 if the stack top's expiry date is less than min->expiry
 	// step3.2.2.1 copy the stack top's value into min
 	// step3.2.3 pop the top element from the stack; do not free its memory		
+	int cur_stack_index = 0;
+	for (list<stack<MealPortion*>*>::iterator i = stacks.begin(); i != stacks.end(); ++i, ++cur_stack_index) {
+		// iterate through stack elements
+		stack<MealPortion*> cur_stack = **i; int cur_stack_size = cur_stack.size();
 
+<<<<<<< HEAD
 	for (list<stack<MealPortion*>*>::iterator i = stacks.begin(); i != stacks.end(); ++i) {
 			stack<MealPortion*> cur_stack = **i; 
 			int cur_stack_size = cur_stack.size();
@@ -167,6 +196,15 @@ FridgeOrganizer::MealPortion FridgeOrganizer::find_meal_portion_by_expiry() {
 			}
 			
 		}
+=======
+		for (int cur_element_index = 0; cur_element_index < cur_stack_size; ++cur_element_index) {
+			if (cur_stack.top()->expiry < min->expiry){
+				min = cur_stack.top();
+			}
+			cur_stack.pop();
+		}
+	}
+>>>>>>> 1d5a848db7a64bf43e08ce299c4b91eac5487409
 	// step4 return corresponding min value
 	return *min;
 }

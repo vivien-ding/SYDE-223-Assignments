@@ -1,10 +1,13 @@
 #include "lab4_priority_queue.hpp"
+#include <iostream>
 
 using namespace std;
 
 // PURPOSE: Parametric constructor 
 // initializes heap to an array of (n_capacity + 1) elements
 PriorityQueue::PriorityQueue(unsigned int n_capacity) {
+	capacity = n_capacity + 1;
+	size = 0;
 }
 
 // PURPOSE: Explicit destructor of the class PriorityQueue
@@ -28,6 +31,17 @@ bool PriorityQueue::full() const {
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
 void PriorityQueue::print() const {
+	cout << "Number of elements: " << size << " Capacity: " << capacity << endl;
+	if (size == 0) {
+		cout << "No elements";
+	} else {
+		cout << "Elements: ";
+		for (int i = 1; i<= size; i++) {
+			cout << heap[i];
+		}
+	}
+
+
 }
 
 // PURPOSE: Returns the max element of the priority queue without removing it

@@ -1,6 +1,8 @@
 #ifndef LAB4_PRIORITY_QUEUE_HPP
 #define LAB4_PRIORITY_QUEUE_HPP
 #include <string>
+#include <iostream>
+
 using namespace std;
 
 // PURPOSE: Models a Priority Queue of Task Items

@@ -143,10 +143,12 @@ FridgeOrganizer::MealPortion FridgeOrganizer::remove_meal_portion() {
 // this method may not disrupt other functionality
 FridgeOrganizer::MealPortion FridgeOrganizer::find_meal_portion_by_expiry() {
 	// step1 create a temporary MealPortion("EMPTY", "N/A") object called min
-
+	MealPortion *min = new MealPortion("EMPTY", "N/A");
 	// step2 if the stacks list is empty
 	// step2.1 return min value
-
+	if (stacks.empty()){
+		return MealPortion("","");
+	}
 	// step3 use list iterator to go through list elements; see print function
 	// step3.1 create a local copy of the current stack; also, store its size as a variable
 	// step3.2 iterate through the copy of the current stack using index value
@@ -154,9 +156,20 @@ FridgeOrganizer::MealPortion FridgeOrganizer::find_meal_portion_by_expiry() {
 	// step3.2.2 if the stack top's expiry date is less than min->expiry
 	// step3.2.2.1 copy the stack top's value into min
 	// step3.2.3 pop the top element from the stack; do not free its memory		
+	int cur_stack_index = 0;
+	for (list<stack<MealPortion*>*>::iterator i = stacks.begin(); i != stacks.end(); ++i, ++cur_stack_index) {
+		// iterate through stack elements
+		stack<MealPortion*> cur_stack = **i; int cur_stack_size = cur_stack.size();
 
+		for (int cur_element_index = 0; cur_element_index < cur_stack_size; ++cur_element_index) {
+			if (cur_stack.top()->expiry < min->expiry){
+				min = cur_stack.top();
+			}
+			cur_stack.pop();
+		}
+	}
 	// step4 return corresponding min value
-	return MealPortion("","");
+	return *min;
 }
 
 // PURPOSE: Tests FridgeOrganizer constructor and basic item insertion

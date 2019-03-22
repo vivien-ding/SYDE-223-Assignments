@@ -23,7 +23,9 @@ unsigned int PriorityQueue::get_size() const {
 
 // PURPOSE: Returns true if the priority queue is empty; false, otherwise
 bool PriorityQueue::empty() const {
-	return (size == 0);
+	if (size == 0){
+		return true;
+	}
 }
 
 // PURPOSE: Returns true if the priority queue is full; false, otherwise
@@ -88,22 +90,28 @@ bool PriorityQueue::enqueue( TaskItem val ) {
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
 bool PriorityQueue::dequeue() {
-	if (size == 0) return false;
+	if (size == 0){
+		return false;
+	} 
 	else {
 		heap[1] = heap[size];
-		size = size - 1;
-		int parent = 1;
-		int child = 2;
-		while (){
-			if (heap[child]->priority > heap[child+1]->priority){
-				if (heap[parent]->priority < heap[child]->priority){
-					heap[parent] = heap[child]
-				}
-			} else{
+		size--;
+		int i = 1;
+		while ((i*2 <= size) && ((heap[i]->priority < heap[2*i]->priority) || (heap[i]->priority < heap[2*i+1]->priority))){
+			if (heap[2*i]->priority > heap[2*i+1]->priority && 2*i <= size){
+				TaskItem* temp = heap[i];
+				heap[i] = heap[2*i];
+				heap[2*i] = temp;
+				i*=2;
+			} 
+			else if (heap[2*i]->priority < heap[2*i+1]->priority && 2*i+1 <= size){
+				TaskItem* temp = heap[i];
+				heap[i] = heap[2*i+1];
+				heap[2*i+1] = temp;
+				i = 2*i+1;
 
-			}
+			} 
 		}
-
-
+		return true;
 	}
 }

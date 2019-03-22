@@ -103,13 +103,14 @@ bool PriorityQueue::dequeue() {
 				heap[i] = heap[2*i];
 				heap[2*i] = temp;
 				i*=2;
+				cout << "working" << endl;
 			} 
 			else if (heap[2*i]->priority < heap[2*i+1]->priority && 2*i+1 <= size){
 				TaskItem* temp = heap[i];
 				heap[i] = heap[2*i+1];
 				heap[2*i+1] = temp;
 				i = 2*i+1;
-
+				cout << "working" << endl;
 			} 
 		}
 		return true;

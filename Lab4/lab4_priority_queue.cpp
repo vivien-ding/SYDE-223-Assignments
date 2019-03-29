@@ -112,7 +112,7 @@ bool PriorityQueue::dequeue() {
 				i = 2*i+1;
 				cout << "working" << endl;
 			} 
-		}
+		}	
 		return true;
 	}
 }

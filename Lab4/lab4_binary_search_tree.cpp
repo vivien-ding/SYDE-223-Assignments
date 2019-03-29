@@ -51,7 +51,8 @@ unsigned int BinarySearchTree::height() const {
 
 // PURPOSE: Prints the contents of the tree; format not specified
 void BinarySearchTree::print() const {
-
+	stack<BinarySearchTree::TaskItem *> s;
+	// use a stack??
 }
 
 // PURPOSE: Returns true if a node with the value val exists in the tree	
@@ -90,10 +91,6 @@ BinarySearchTree::TaskItem** BinarySearchTree::get_root_node_address() {
 }
 
 // PURPOSE: Optional helper function that gets the maximum depth for a given node
-int BinarySearchTree::get_node_depth( BinarySearchTree::TaskItem* n ) const {
-}
-
-// PURPOSE: Optional helper function that gets the maximum height for a given node
 int BinarySearchTree::get_node_depth( BinarySearchTree::TaskItem* n ) const {
 	if (n == NULL){
 		return 0;

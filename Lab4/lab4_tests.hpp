@@ -164,7 +164,6 @@ public:
 
 		ASSERT_TRUE(bst.remove(BinarySearchTree::TaskItem(65,"Test Task")));
 		ASSERT_TRUE(bst.get_size() == 2);
-    
 		std::string tree_level_order = level_order(bst.root);
 		ASSERT_TRUE(tree_level_order.compare(expected_tree_level_order) == 0)
 		return true;

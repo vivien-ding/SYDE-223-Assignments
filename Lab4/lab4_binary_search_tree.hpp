@@ -1,3 +1,6 @@
+//Written by Vivien (Zhaowei) Ding & Christina Lim 
+//Student numbers: 20654920 & 20724130
+
 #ifndef LAB4_BINARY_SEARCH_TREE_HPP
 #define LAB4_BINARY_SEARCH_TREE_HPP
 

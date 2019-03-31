@@ -1,3 +1,5 @@
+//Written by Vivien (Zhaowei) Ding & Christina Lim 
+//Student numbers: 20654920 & 20724130
 #ifndef LAB4_PRIORITY_QUEUE_HPP
 #define LAB4_PRIORITY_QUEUE_HPP
 #include <string>
